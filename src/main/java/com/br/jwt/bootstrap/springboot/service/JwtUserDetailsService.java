@@ -15,9 +15,13 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
 
+    public JwtUserDetailsService(UserService userService) {
+        this.userService = userService;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        com.bootstrap.springboot.model.User user = userService.getByEmail(email);
+        com.br.jwt.bootstrap.springboot.service.UserService user = userService.getByEmail(email);
 
         if (user.getEmail().equals(email)) {
             return new User(email, user.getPassword(),
